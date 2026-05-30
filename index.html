@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title><style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Arial',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e293b,#7c3aed);
+color:white;
+}
+
+.card{
+width:92%;
+max-width:600px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:28px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+z-index:5;
+}
+
+h1{
+margin-bottom:15px;
+}
+
+#text{
+font-size:22px;
+line-height:1.7;
+min-height:160px;
+}
+
+button{
+padding:14px 24px;
+margin:10px;
+border:none;
+border-radius:16px;
+font-size:16px;
+cursor:pointer;
+transition:.25s;
+background:white;
+color:#7c3aed;
+font-weight:bold;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.star{
+position:absolute;
+background:white;
+border-radius:50%;
+animation:blink infinite alternate;
+}
+
+@keyframes blink{
+from{opacity:.2;}
+to{opacity:1;}
+}
+
+.heart{
+position:absolute;
+animation:fall linear infinite;
+pointer-events:none;
+}
+
+@keyframes fall{
+from{
+transform:translateY(-100px);
+opacity:1;
+}
+to{
+transform:translateY(120vh);
+opacity:0;
+}
+}
+
+.glow{
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.03);}
+100%{transform:scale(1);}
+}
+</style></head><body><audio id="music" loop>
+<source src="Rewrite The Stars_1699275933_musicaldown.com.mp3" type="audio/mpeg">
+</audio><div class="card glow"><h1>🌙 Sebentar...</h1><div id="text">
+Aku punya sesuatu yang ingin aku sampaikan...
+</div><div id="buttons">
+<button onclick="mulai()">Lanjut ✨</button>
+</div></div><script>
+
+// bintang
+for(let i=0;i<80;i++){
+let s=document.createElement("div");
+s.className="star";
+
+let size=Math.random()*3+1;
+
+s.style.width=size+"px";
+s.style.height=size+"px";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDuration=(1+Math.random()*3)+"s";
+
+document.body.appendChild(s);
+}
+
+// hati
+for(let i=0;i<25;i++){
+
+let h=document.createElement("div");
+
+h.className="heart";
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(15+Math.random()*25)+"px";
+h.style.animationDuration=(6+Math.random()*8)+"s";
+
+document.body.appendChild(h);
+}
+
+const cerita=[
+
+"Hai ❤️",
+
+"Aku nggak tahu harus mulai dari mana...",
+
+"Tapi ada sesuatu yang sudah lama ingin aku bilang.",
+
+"Awalnya aku kira ini cuma rasa kagum biasa.",
+
+"Ternyata aku selalu menunggu pesan darimu ✨",
+
+"Dan setiap ngobrol sama kamu, hariku terasa lebih menyenangkan 🌹",
+
+"Aku merasa nyaman saat bersamamu.",
+
+"Jadi hari ini aku memberanikan diri untuk jujur...",
+
+"Aku suka sama kamu ❤️"
+
+];
+
+let index=0;
+
+function ketik(teks,callback){
+
+let i=0;
+
+document.getElementById("text").innerHTML="";
+
+let interval=setInterval(()=>{
+
+document.getElementById("text").innerHTML+=teks.charAt(i);
+
+i++;
+
+if(i>=teks.length){
+
+clearInterval(interval);
+
+if(callback) callback();
+
+}
+
+},40);
+
+}
+
+function mulai(){
+
+document.getElementById("music").play().catch(()=>{});
+
+nextStory();
+
+}
+
+function nextStory(){
+
+ketik(cerita[index],()=>{
+
+if(index<cerita.length-1){
+
+document.getElementById("buttons").innerHTML=
+'<button onclick="lanjut()">Lanjut ❤️</button>';
+
+}else{
+
+document.getElementById("buttons").innerHTML=
+'<button onclick="tanya()">Selanjutnya ✨</button>';
+
+}
+
+});
+
+}
+
+function lanjut(){
+
+index++;
+
+nextStory();
+
+}
+
+function tanya(){
+
+ketik("Jadi... maukah kamu jadi pacarku? 🥺❤️",()=>{
+
+document.getElementById("buttons").innerHTML=`
+
+<button onclick="iya()">Mau ❤️</button>
+
+<button id="noBtn">Tidak 😅</button>
+
+`;
+
+let no=document.getElementById("noBtn");
+
+no.addEventListener("mouseover",kabur);
+no.addEventListener("touchstart",kabur);
+
+});
+
+}
+
+function kabur(){
+
+let btn=document.getElementById("noBtn");
+
+btn.style.position="absolute";
+
+btn.style.left=Math.random()*75+"%";
+btn.style.top=Math.random()*75+"%";
+
+const kata=[
+"Yakin? 😭",
+"Jangan 😭",
+"Pikir lagi 🥺",
+"Salah pencet ya? 😆",
+"Kasih kesempatan ❤️"
+];
+
+btn.innerHTML=
+kata[Math.floor(Math.random()*kata.length)];
+
+}
+
+function iya(){
+
+document.querySelector(".card").innerHTML=`
+
+<h1>🎉 YEAYYYY ❤️ 🎉</h1>
+
+<br>
+
+<h2>
+Kamu baru saja membuat seseorang
+sangat bahagia ✨
+</h2>
+
+<br>
+
+<p style="font-size:22px">
+💖 Terima kasih sudah memilih "Mau" 💖
+</p>
+
+<br>
+
+<h2>
+Mulai hari ini,
+kamu resmi jadi orang favoritku ❤️
+</h2>
+
+`;
+
+for(let i=0;i<150;i++){
+
+let c=document.createElement("div");
+
+c.innerHTML=["❤️","💖","✨","🌹","🎉"][Math.floor(Math.random()*5)];
+
+c.style.position="absolute";
+c.style.left=Math.random()*100+"vw";
+c.style.top="-50px";
+c.style.fontSize=(20+Math.random()*25)+"px";
+c.style.pointerEvents="none";
+c.style.transition="4s linear";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.style.transform=
+`translateY(${window.innerHeight+200}px) rotate(720deg)`;
+},10);
+
+}
+}
+</script></body>
+                       </html>
